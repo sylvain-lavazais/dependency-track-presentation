@@ -1,0 +1,71 @@
+{
+  "branches": [
+    "main"
+  ],
+  "tagFormat": "${version}",
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "conventionalcommits",
+        "releaseRules": [
+          {
+            "type": "chore",
+            "release": "patch"
+          },
+          {
+            "type": "refactor",
+            "release": "patch"
+          }
+        ]
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            {"type": "feat", "section": "Features"},
+            {"type": "fix", "section": "Bug Fixes"},
+            {"type": "chore", "section": "Miscellaneous"},
+            {"type": "refactor", "section": "Refactoring"},
+            {"type": "docs", "hidden": true},
+            {"type": "style", "hidden": true},
+            {"type": "perf", "hidden": true},
+            {"type": "test", "hidden": true},
+            {"type": "sweat", "hidden": true}
+          ]
+        },
+        "parserOpts": {
+          "mergeCorrespondence": ["id"]
+        },
+        "writerOpts": {
+        }
+      }
+    ],
+    "@semantic-release/changelog",
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "Presentation/doc/slides.pdf",
+          "CHANGELOG.md",
+          "version.txt"
+        ],
+        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          {
+            "path": "Presentation/doc/slides.pdf",
+            "label": "PDF Presentation"
+          }
+        ]
+      }
+    ]
+  ]
+}
