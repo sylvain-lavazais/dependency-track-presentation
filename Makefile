@@ -20,8 +20,8 @@ export-pdf: clean ## Export presentation to pdf (used in GH action)
 	@docker run -d -p 1948:1948 -v $(shell pwd)/Presentation:/slides --name reveal-md webpronl/reveal-md:latest /slides
 	@mkdir generation_tmp && sudo chmod 777 generation_tmp
 	@sleep 5
-	@docker run --rm -t --net=host -v $(shell pwd)/generation_tmp:/slides astefanutti/decktape reveal -s 2048x1536 http://localhost:1948/slides.md slides.pdf
-	@mv -f generation_tmp/slides.pdf Presentation/doc/slides.pdf
+	@docker run --rm -t --net=host -v $(shell pwd)/generation_tmp:/slides astefanutti/decktape reveal -s 2048x1536 http://localhost:1948/slides_EN.md slides_EN.pdf
+	@mv -f generation_tmp/slides_EN.pdf Presentation/doc/slides_EN.pdf
 	@make clean
 	@mv Presentation/reveal.json Presentation/print-options.json
 .PHONY: export-pdf
@@ -32,9 +32,6 @@ export-pdf: clean ## Export presentation to pdf (used in GH action)
 
 exec-release: ## Execution of a new release (used in GH action)
 	@./mvnw -q versions:set -DnewVersion=${VERSION}
-	@sed -Ei 's/version:.*/version: ${VERSION}/g' src/doc/docapi/static/openapi.yaml
-	@cat src/doc/docapi/content/changelog/_index.en.md.header > src/doc/docapi/content/changelog/_index.en.md
-	@cat CHANGELOG.md >> src/doc/docapi/content/changelog/_index.en.md
 	@export NEXT_VERSION=${VERSION}
 .PHONY: exec-release
 
