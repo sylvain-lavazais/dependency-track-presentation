@@ -30,11 +30,6 @@ export-pdf: clean ## Export presentation to pdf (used in GH action)
 ##@ Misc
 ##  ----
 
-exec-release: ## Execution of a new release (used in GH action)
-	@./mvnw -q versions:set -DnewVersion=${VERSION}
-	@export NEXT_VERSION=${VERSION}
-.PHONY: exec-release
-
 prepare:
 	@npm install @semantic-release/exec -D
 	@npm install @semantic-release/changelog -D
