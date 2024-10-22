@@ -15,7 +15,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - "dep-track-data:/var/lib/postgresql"
+      - "dep-track-data:/var/lib/postgresql/data"
 
   dtrack-apiserver:
     depends_on:
